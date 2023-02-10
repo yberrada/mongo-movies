@@ -11,6 +11,8 @@ The goal of this lab is to get your familiar with some of the MongoDB Atlas feat
 5. [Add Data Capture](#CDC)
 
 
+## Architecture
+![alt text](./public/architectureDiagram.png)
 
 ## Fork Github repo
 1. Fork this git repository and open it in your favorite IDE. 
