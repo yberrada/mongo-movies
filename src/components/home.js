@@ -6,6 +6,7 @@ import axios from 'axios';
 
 const Movies = () => {
     const [result, setResult] = useState([]);
+    
     useEffect(() => {
       fetch("http://localhost:8000/movies")
         .then((res) => res.json())

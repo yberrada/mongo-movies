@@ -1,13 +1,15 @@
 const express = require("express");
 const cors = require("cors");
 var client = require('./db');
-
 const app = express();
+const { MongoClient } = require("mongodb");
 
-app.use(cors());
 
+const uri ="mongodb+srv://admin:admin@cluster1.fof1o.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(uri);
 const movies = client.db("sample_mflix").collection("movies")
 
+app.use(cors());
 app.get("/search", async (req, res) => {
     const searchQuery = [
         {
@@ -22,8 +24,6 @@ app.get("/search", async (req, res) => {
         }
     ]
     const result = await movies.aggregate(searchQuery).toArray();
-    
-    console.log(JSON.stringify(result));
     res.send(result);
 });
 
