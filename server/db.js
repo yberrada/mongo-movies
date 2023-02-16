@@ -5,7 +5,7 @@ const { MongoClient } = require("mongodb");
 
 function connectDatabase() {
 
-    const uri ="mongodb+srv://admin:admin@cluster1.fof1o.mongodb.net/?retryWrites=true&w=majority";
+    const uri ="YourConnectionString";
     const client = new MongoClient(uri);
     return client;
 }
