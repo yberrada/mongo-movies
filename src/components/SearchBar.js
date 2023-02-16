@@ -27,7 +27,7 @@ function SearchBar({ placeholder, data }) {
   let movies = [];
   result.forEach((movie, idx) => {
     movies.push(
-      <div className="col-sm py-3" key={idx}>
+      <div className="col-sm py-3">
         <Movie title={movie.title} fullplot={movie.fullplot} type={movie.type} poster={movie.poster} match="searchResult" />
       </div>
     )
