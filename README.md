@@ -4,11 +4,11 @@ The goal of this lab is to get you familiar with some of the MongoDB Atlas featu
 # Table of Contents
 1. [Introduction & Architecture](#architecture)
 2. [Prerequisites](#prerequisites)
-3. [Exercise 1: Setup Atlas Cluster](#setup)
-4. [Exercise 2: Query Optimization](#example2)
-5. [Exercise 3: Data archival](#third-example)
-6. [Exercise 4: Federated Queries](#third-example)
-7. [Exercise 5: Add a new feature -> *Search*](#third-example)
+3. [Exercise 1: Setup Atlas Cluster](#exercise-1-setup-atlas-cluster)
+4. [Exercise 2: Query Optimization](#query-optimization)
+5. [Exercise 3: Data archival](#data-archival)
+6. [Exercise 4: Federated Queries](#Federated-Queries)
+7. [Exercise 5: Add a Search feature](#add-a-search-feature)
 8. [Exercise 6: Create a Node.js Microservice to serve the search requests](#fourth-examplehttpwwwfourthexamplecom)
 9. [Exercise 7: Add Data Capture](#CDC)
 
@@ -20,25 +20,10 @@ The goal of this lab is to get you familiar with some of the MongoDB Atlas featu
 ![alt text](./public/architectureDiagram.png) 
 
 # Prerequisites 
-#### Prerequisites.
-
-## Step 1: Access MongoDB Atlas cluster and setup security 
-*Skip this exercise if you already have a MongoDB Atlas Cluster*
-- Login to the attendee portal: https://www.atlas-labs.cloud/
-- Gain access to your dedicated cluster by clicking on <b>Atlas Cluster</b> in the top right corner.
-- The e-mail will be prepopulated, leave it as is and use the following password to login: *AtlasW0rskop!*
-- Awesome! So far, we have gained access to the cluster. We now need to setup the security around Atlas. By default, Atlas cluters are not reachable from the internet. We also need to configure *Authentication* and *Authorization*!
-- Click on Database Access in the left sidebar, and click on ADD NEW DATABASE USER.
-- Set the authentication Method to Password (uses SCRAM) and give your user a username, a password and provide them with one of the available built-in roles that allow a user to read and write from all databases.
-- Let's now configure the network security. As this is a workshop we will be whitelisting all IPs to access our cluster instead of opting for a VPC peering or a Private endpoint for more complex deployments. 
-- click on network Access on the left side bar and click on ADD IP ADDRESS. 
-- Go ahead and allow access from anywhere. 
-
-*Awesome. So far we have gained access to a MongoDB Atlas Cluster and we have configured the Security.* 
-
-
-## Step 2: Clone Github Repo
-We're now going to start setting up our application. First, create a folder for the workshop content:
+### Step 1 - Install Node.JS:
+Use the following link to download and install Node.js: https://nodejs.org/en/download/
+### Step 2 - Clone Github Repo
+We're going to start by setting up our project. First, create a folder for the workshop content:
 ```
 mkdir mongodb-workshop
 cd mongodb-workshop
@@ -61,10 +46,27 @@ npm run dev
 *The application should now be running on your local machine. To check out the app, visit localhost @ port 3000: http://localhost:3000*
 *Notice that the frontend runs in the port 3000 while the backend service run on port 8000.*
 
-## Step 3: Explore the app
+### Step 3: Explore the app
 As you have might have figured out by now, the application is working -  it is basically a mini netflix Clone! This lab will consists of a series of exercices that will enhance the application performance and introduce new features to it.
 
-## Step 4: Change query
+# Exercise 1: Setup Atlas Cluster
+
+### Step 1: Access MongoDB Atlas cluster  
+*Skip this exercise if you already have a MongoDB Atlas Cluster*
+- Login to the attendee portal: https://www.atlas-labs.cloud/
+- Gain access to your dedicated cluster by clicking on <b>Atlas Cluster</b> in the top right corner.
+- The e-mail will be prepopulated, leave it as is and use the following password to login: *AtlasW0rskop!*
+- Awesome! So far, we have gained access to the cluster. We now need to setup the security around Atlas. By default, Atlas cluters are not reachable from the internet. We also need to configure *Authentication* and *Authorization*!
+### Step 2: Setup your cluster's security
+- Click on Database Access in the left sidebar, and click on ADD NEW DATABASE USER.
+- Set the authentication Method to Password (uses SCRAM) and give your user a username, a password and provide them with one of the available built-in roles that allow a user to read and write from all databases.
+- Let's now configure the network security. As this is a workshop we will be whitelisting all IPs to access our cluster instead of opting for a VPC peering or a Private endpoint for more complex deployments. 
+- click on network Access on the left side bar and click on ADD IP ADDRESS. 
+- Go ahead and allow access from anywhere. 
+
+*Awesome. So far we have gained access to a MongoDB Atlas Cluster and we have configured the Security.* 
+
+# Exercise 2: Query Optimization
 Let's start by optimizing the welcome page. At this time, the query powering the welcome page searches randomly for 10 movies. The business wants us to instead only show the last 10 movies that were added. 
 
 You need to ome up with a query that returns the 10 movies that are PG rated: `{rated : "PG"}` and their release date is between 2000 and 2016 `{rated : "PG", year:{$gt: 2000, $lt: 2016}}` while sorting by title `{title: 1}`.
@@ -76,8 +78,7 @@ Make sure to update the query in the `./server/movies.js` file.
 Does<b>2016: Obama's America</b> show first on the list? Great job so far! Now, notice that the query is not supported by any index... Go into the dev tools and see the latency of the request...We should be able to optimize that...
 Ask:
 Create an index on your movies collection to support the query of the landing/welcome page.*  -->
-
-## Step 5: Archive some of the data
+# Exercise 3: Data archival
 Based on the results of the analytics team, 95% of the customers only search for movies that were released in the past 7 years. Therefore, as a cost optimization measure we would like to archive movies older than 7 years old. Archiving can be a complicated process. Thankfully, MongoDB Atlas comes with an archival service that we can leverage. We will use *Atlas Online Archive* to archive all the movies that were realeased before 2016.
 - Navigate to the movies collection and Click on the Online Archive Tab
 - Click on Configure Online Archive
@@ -88,8 +89,7 @@ Based on the results of the analytics team, 95% of the customers only search for
 
 *If successful, you should not be able to find any movies with a year value prior to 2016 in your database.*
 
-
-## Step 6: Federated Query
+# Exercise 4: Federated Queries
 Go back to the app,  and verify if the <b>2016: Obama's America</b> is still showing up first. If you have properly archived your data, the movie should not be there (It was released in 2012). That's a problem. Yes, we wanted to archive the old movies, however, we would still like to offer them as one of the options for our viewers. Thankfully, we can leverage *Atlas Data Federation* which enables us to use one MongoDB connection to query both data in our live cluster and the data that was archived. All we have to do is update our connection string in the code.  
 - Go to the Data Services Tab. 
 - Under the cluster view, Click on Connect
@@ -99,7 +99,7 @@ Go back to the app,  and verify if the <b>2016: Obama's America</b> is still sho
 
 Now again, refresh the app. You should see <b>2016: Obama's America</b> on top of the list. 
 
-## Step 7: Add a search bar
+# Exercise 5: Add a Search feature
 As we further enhance our application, we received a request from the business to provide our users the option to search for a movie. The application needs to have a search bar where our customers can search for a <b>*movie name*, a *genre*, or for an *actor* </b>. Of course, the search should be typo tolerant(*fuzzy matching*). The frontend was already built for you. However, the search bar (found in the search tab of the UI) should be powered by a rest API. To add the search functionality, we will need to: 
 1. Build a full-text search index. Typically, we'd need a search engine but Atlas has a Search feature that we will be leveraging. 
 2. Create the microservice to expose the functionality as an API
@@ -122,7 +122,7 @@ We'll start by building the index:
 - Export the pipeline to NodeJS syntax. 
 
 Now that our index is ready, let's write the NodeJS microservice to serve the frontend requests for search.  
-## Step 8: Create a Node.js Microservice to serve the search requests
+# Exercise 6: Create a Node.js Microservice to serve the search requests
 The frontend sends a `GET` request to the following endpoint: http:///localhost:8001/search, it passes the search term as a query string in the following format: `http://localhost:8001/search?search="`
 
 - Create a file in the server folder and call it `search.js`
@@ -168,7 +168,8 @@ app.listen(8001, () => {
 ```
 
 You're now ready to test your search functionality. If you have configured the search index properly, the UI search bar should output relevant result. Try searching for **ghstbuters**, this should return the movie **Ghostbusters**
-## Step 9: Add CDC
+
+# Exercise 7: Add Data Capture
 This is the last exercise of the workshop. At this point, we want to keep track of every user that adds a movie to our database. For that, we can create an Atlas function and configure a trigger to create a document for each user that has added/inserted a new movie to our database. 
 
 - In the Atlas UI, click on App Services.
