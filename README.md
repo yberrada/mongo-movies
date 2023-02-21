@@ -2,24 +2,28 @@
 The goal of this lab is to get you familiar with some of the MongoDB Atlas features and the MongoDB Node.js Driver.
 
 # Table of Contents
-1. [Introduction](#Fork)
-2. [Fork Github repo](#Fork)
-3. [Optimize query](#example2)
-4. [Add a search bar](#third-example)
-5. [Create a Node.js Microservice to serve the search requests](#fourth-examplehttpwwwfourthexamplecom)
-6. [Archive Data](#archive)
-7. [Archive Data](#archive)
-8. [Add Data Capture](#CDC)
+1. [Introduction & Architecture](#architecture)
+2. [Prerequisites](#prerequisites)
+3. [Exercise 1: Setup Atlas Cluster](#setup)
+4. [Exercise 2: Query Optimization](#example2)
+5. [Exercise 3: Data archival](#third-example)
+6. [Exercise 4: Federated Queries](#third-example)
+7. [Exercise 5: Add a new feature -> *Search*](#third-example)
+8. [Exercise 6: Create a Node.js Microservice to serve the search requests](#fourth-examplehttpwwwfourthexamplecom)
+9. [Exercise 7: Add Data Capture](#CDC)
+
 
 # Architecture
-The following is a high level architecture diagram of the application we're going to work on today. 
+>The following is a high level architecture diagram of the application we're going to work on today. 
 <br />
 
 ![alt text](./public/architectureDiagram.png) 
 
+# Prerequisites 
+#### Prerequisites.
 
 ## Step 1: Access MongoDB Atlas cluster and setup security 
-*Skip this exercise if you already have a MongoDB Atlas Account*
+*Skip this exercise if you already have a MongoDB Atlas Cluster*
 - Login to the attendee portal: https://www.atlas-labs.cloud/
 - Gain access to your dedicated cluster by clicking on <b>Atlas Cluster</b> in the top right corner.
 - The e-mail will be prepopulated, leave it as is and use the following password to login: *AtlasW0rskop!*
@@ -156,7 +160,7 @@ app.get("/search", async (req, res) => {
     res.send(result);
 });
 ```
-- Make your application listen to the 8001 port:
+- Run your application on port `8001`:
 ```
 app.listen(8001, () => {
     console.log(`Server is running on port 8001.`);
