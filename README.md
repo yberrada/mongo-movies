@@ -56,22 +56,24 @@ As you have might have figured out by now, the application is working -  it is b
 ### Step 1: Access MongoDB Atlas cluster  
 *Skip this exercise if you already have a MongoDB Atlas Cluster*
 - Login to the attendee portal: https://www.atlas-labs.cloud/
-- Gain access to your dedicated cluster by clicking on <b>Atlas Cluster</b> in the top right corner.
+- Gain access to your dedicated cluster by clicking on <b>Atlas Cluster</b> in the top left corner.
 - The e-mail will be prepopulated, leave it as is and use the following password to login:
 >  *AtlasW0rskop!*
-- Awesome! So far, we have gained access to the cluster. We now need to setup the security around Atlas. By default, Atlas cluters are not reachable from the internet. We also need to configure *Authentication* and *Authorization*!
+
+Great! We now need to setup the security around Atlas. By default, Atlas cluters are not reachable from the internet. We also need to configure *Authentication* and *Authorization*!
 ### Step 2: Setup your cluster's security
 - Click on Database Access in the left sidebar, and click on:
 > ADD NEW DATABASE USER.
 - Set the authentication Method to Password (uses SCRAM) and give your user a:
-> username & password  </br>
+> Username & Password  </br>
 - Assign the user one of the available built-in roles that allows a user to read and write from all databases.
-- Let's now configure the network security. As this is a workshop we will be whitelisting all IPs to access our cluster instead of opting for a VPC peering or a Private endpoint for more complex deployments. 
+
+Let's now configure the network security. As this is a workshop we will be whitelisting all IPs to access our cluster instead of opting for a VPC peering or a Private endpoint for more complex deployments. 
 - Click on network Access on the left side bar and click on:
 >ADD IP ADDRESS. 
-- Go ahead and allow access from anywhere. 
+- Allow access from anywhere. 
 
-*Awesome. So far we have gained access to a MongoDB Atlas Cluster and we have configured the Security.* 
+Awesome. So far we have gained access to a MongoDB Atlas Cluster and we have configured the Security.
 
 # Exercise 2: Query Optimization
 Let's start by optimizing the welcome page. At this time, the query powering the welcome page searches randomly for 10 movies. The business wants us to instead only show the last 10 movies that were added. 
