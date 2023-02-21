@@ -64,7 +64,7 @@ Great! We now need to setup the security around Atlas. By default, Atlas cluters
 ### Step 2: Setup your cluster's security
 - Click on Database Access in the left sidebar, and click on:
 > ADD NEW DATABASE USER.
-- Set the authentication Method to Password (uses SCRAM) and give your user a:
+- Set the authentication Method to Password (uses SCRAM) and give your user a: 
 > Username & Password  </br>
 - Assign the user one of the available built-in roles that allows a user to read and write from all databases.
 
@@ -78,7 +78,7 @@ Awesome. So far we have gained access to a MongoDB Atlas Cluster and we have con
 # Exercise 2: Query Optimization
 Let's start by optimizing the welcome page. At this time, the query powering the welcome page searches randomly for 10 movies. The business wants us to instead only show the last 10 movies that were added. 
 
-You need to ome up with a query that returns the 10 movies that are PG rated: `{rated : "PG"}` and their release date is between 2000 and 2016 `{rated : "PG", year:{$gt: 2000, $lt: 2016}}` while sorting by title `{title: 1}`.
+You need to come up with a query that returns the 10 movies that are PG rated: `{rated : "PG"}` and their release date is between 2000 and 2016 `{rated : "PG", year:{$gt: 2000, $lt: 2016}}` while sorting by title `{title: 1}`.
 
 Make sure to update the query in the `./server/movies.js` file.
 
@@ -89,7 +89,7 @@ Ask:
 Create an index on your movies collection to support the query of the landing/welcome page.*  -->
 # Exercise 3: Data archival
 Based on the results of the analytics team, 95% of the customers only search for movies that were released in the past 7 years. Therefore, as a cost optimization measure we would like to archive movies older than 7 years old. Archiving can be a complicated process. Thankfully, MongoDB Atlas comes with an archival service that we can leverage. We will use *Atlas Online Archive* to archive all the movies that were realeased before 2016.
-- Navigate to the movies collection and Click on the Online Archive Tab
+- Navigate to the movies collection and click on the Online Archive Tab
 - Click on Configure Online Archive
 - Click on Next and enter the namespace where the movies are stored (*The namespace would be the db.collection -> sample_mflix.movies* ).
 - Under the archiving rule, select custom criteria and come up with the query that return movies that were released before 2016. Note, the movie documents have a field called `year`. Write a basic MQL query in the custom criteria input box. The query should look like this: `{"year": {"$lt": 2016}}` 
