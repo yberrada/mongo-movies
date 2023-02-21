@@ -5,23 +5,24 @@ The goal of this lab is to get you familiar with some of the MongoDB Atlas featu
 1. [Introduction & Architecture](#architecture)
 2. [Prerequisites](#prerequisites)
 3. [Exercise 1: Setup Atlas Cluster](#exercise-1-setup-atlas-cluster)
-4. [Exercise 2: Query Optimization](#query-optimization)
-5. [Exercise 3: Data archival](#data-archival)
-6. [Exercise 4: Federated Queries](#Federated-Queries)
-7. [Exercise 5: Add a Search feature](#add-a-search-feature)
-8. [Exercise 6: Create a Node.js Microservice to serve the search requests](#fourth-examplehttpwwwfourthexamplecom)
-9. [Exercise 7: Add Data Capture](#CDC)
+4. [Exercise 2: Query Optimization](#exercise-2-query-optimization)
+5. [Exercise 3: Data archival](#exercise-3-data-archival)
+6. [Exercise 4: Federated Queries](#exercise-4-Federated-Queries)
+7. [Exercise 5: Add a Search feature](#exercise-5-add-a-search-feature)
+8. [Exercise 6: Create a Node.js Microservice](#exercise-6-create-a-nodejs-microservice)
+9. [Exercise 7: Add Data Capture](#exercise-7-add-data-capture)
 
 
 # Architecture
->The following is a high level architecture diagram of the application we're going to work on today. 
+*The following is a high level architecture diagram of the application we're going to work on today.* 
 <br />
 
 ![alt text](./public/architectureDiagram.png) 
 
 # Prerequisites 
 ### Step 1 - Install Node.JS:
-Use the following link to download and install Node.js: https://nodejs.org/en/download/
+Use the following link to download and install Node.js: 
+>https://nodejs.org/en/download/
 ### Step 2 - Clone Github Repo
 We're going to start by setting up our project. First, create a folder for the workshop content:
 ```
@@ -47,7 +48,8 @@ npm run dev
 *Notice that the frontend runs in the port 3000 while the backend service run on port 8000.*
 
 ### Step 3: Explore the app
-As you have might have figured out by now, the application is working -  it is basically a mini netflix Clone! This lab will consists of a series of exercices that will enhance the application performance and introduce new features to it.
+As you have might have figured out by now, the application is working -  it is basically a mini netflix Clone! </br>
+*This lab will consists of a series of exercices that will enhance the application performance and introduce new features to it.*
 
 # Exercise 1: Setup Atlas Cluster
 
@@ -55,13 +57,18 @@ As you have might have figured out by now, the application is working -  it is b
 *Skip this exercise if you already have a MongoDB Atlas Cluster*
 - Login to the attendee portal: https://www.atlas-labs.cloud/
 - Gain access to your dedicated cluster by clicking on <b>Atlas Cluster</b> in the top right corner.
-- The e-mail will be prepopulated, leave it as is and use the following password to login: *AtlasW0rskop!*
+- The e-mail will be prepopulated, leave it as is and use the following password to login:
+>  *AtlasW0rskop!*
 - Awesome! So far, we have gained access to the cluster. We now need to setup the security around Atlas. By default, Atlas cluters are not reachable from the internet. We also need to configure *Authentication* and *Authorization*!
 ### Step 2: Setup your cluster's security
-- Click on Database Access in the left sidebar, and click on ADD NEW DATABASE USER.
-- Set the authentication Method to Password (uses SCRAM) and give your user a username, a password and provide them with one of the available built-in roles that allow a user to read and write from all databases.
+- Click on Database Access in the left sidebar, and click on:
+> ADD NEW DATABASE USER.
+- Set the authentication Method to Password (uses SCRAM) and give your user a:
+> username & password  </br>
+- Assign the user one of the available built-in roles that allows a user to read and write from all databases.
 - Let's now configure the network security. As this is a workshop we will be whitelisting all IPs to access our cluster instead of opting for a VPC peering or a Private endpoint for more complex deployments. 
-- click on network Access on the left side bar and click on ADD IP ADDRESS. 
+- Click on network Access on the left side bar and click on:
+>ADD IP ADDRESS. 
 - Go ahead and allow access from anywhere. 
 
 *Awesome. So far we have gained access to a MongoDB Atlas Cluster and we have configured the Security.* 
@@ -122,7 +129,9 @@ We'll start by building the index:
 - Export the pipeline to NodeJS syntax. 
 
 Now that our index is ready, let's write the NodeJS microservice to serve the frontend requests for search.  
-# Exercise 6: Create a Node.js Microservice to serve the search requests
+# Exercise 6: Create a Node.js Microservice 
+> The microservice will serve our application's search requests
+
 The frontend sends a `GET` request to the following endpoint: http:///localhost:8001/search, it passes the search term as a query string in the following format: `http://localhost:8001/search?search="`
 
 - Create a file in the server folder and call it `search.js`
