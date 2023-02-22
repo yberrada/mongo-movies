@@ -96,7 +96,7 @@ Based on the results of the analytics team, 95% of the customers only search for
 - Navigate to the movies collection and click on the Online Archive Tab
 - Click on Configure Online Archive
 - Click on Next and enter the namespace where the movies are stored `sample_mflix.movies`.
-- Under the archiving rule, select **custom criteria** and come up with the query that return movies that were released before 2016. Note, the movie documents have a field called `year`. Write a basic MQL query in the custom criteria input box. The query should look like this: `{"year": {"$lt": 2016}}` 
+- Under the archiving rule, select **custom criteria** and come up with the query that return movies that were released before 2013. Note, the movie documents have a field called `year`. Write a basic MQL query in the custom criteria input box. The query should look like this: `{"year": {"$lte": 2013}}` 
 - Enter the most common fields that queries on archived documents will contain. These will be used to partition your archived data for optimal query performance.In our scenario, this is the `rated` field, then the `title` field. 
 - Click on next and launch the archival process.
 
@@ -172,7 +172,7 @@ app.listen(8001, () => {
 });
 ```
 
-You're now ready to test your search functionality. If you have configured the search index properly, the UI search bar should output relevant result. Try searching for **ghstbuters**, this should return the movie **Ghostbusters**
+You're now ready to test your search functionality. If you have configured the search index properly, the UI search bar should output relevant result. Try searching for **apoclpse**, this should return the movie **[REC] 4: Apocalypse**
 
 # Exercise 7: Add Data Capture
 This is the last exercise of the workshop. At this point, we want to keep track of every user that adds a movie to our database. For that, we can create an Atlas function and configure a trigger to create a document for each user that has added/inserted a new movie to our database. 
