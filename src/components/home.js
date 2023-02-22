@@ -1,7 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Movie from "./movie";
-import SearchBar from "./SearchBar";
-import axios from 'axios';
 
 
 const Movies = () => {
