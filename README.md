@@ -54,7 +54,7 @@ As you have might have figured out by now, the application is working -  it is b
 # Exercise 1: Setup Atlas Cluster
 
 ### Step 1: Access MongoDB Atlas cluster  
-*Skip this exercise if you already have a MongoDB Atlas Cluster*
+*Skip this exercise if you already have a MongoDB Atlas Cluster - Make sure the Atlas Cluster is at least an M10*
 - Login to the attendee portal: https://www.atlas-labs.cloud/
 - Gain access to your dedicated cluster by clicking on <b>Atlas Cluster</b> in the top left corner.
 - The e-mail will be prepopulated, leave it as is and use the following password to login:
@@ -66,7 +66,7 @@ Great! We now need to setup the security around Atlas. By default, Atlas cluters
 > ADD NEW DATABASE USER.
 - Set the authentication Method to Password (uses SCRAM) and give your user a: 
 > Username & Password  </br>
-- Assign the user one of the available built-in roles that allows a user to read and write from all databases.
+- Assign the user one of the available built-in roles that allows a user to be an Atlas Cluster Admin.
 
 Let's now configure the network security. As this is a workshop we will be whitelisting all IPs to access our cluster instead of opting for a VPC peering or a Private endpoint for more complex deployments. 
 - Click on network Access on the left side bar and click on:
@@ -88,7 +88,8 @@ Does<b>2016: Obama's America</b> show first on the list? Great job so far! Now, 
 Ask:
 Create an index on your movies collection to support the query of the landing/welcome page.*  -->
 # Exercise 3: Data archival
-Based on the results of the analytics team, 95% of the customers only search for movies that were released in the past 7 years. Therefore, as a cost optimization measure we would like to archive movies older than 7 years old. Archiving can be a complicated process. Thankfully, MongoDB Atlas comes with an archival service that we can leverage. We will use *Atlas Online Archive* to archive all the movies that were realeased before 2016.
+Based on the results of the analytics team, 95% of the customers only search for movies that were released in the past 7 years. Therefore, as a cost optimization measure we would like to archive movies older than 7 years old. Archiving can be a complicated process. Thankfully, MongoDB Atlas comes with an archival service that we can leverage. We will use *Atlas Online Archive* to archive all the movies that were realeased before 2015.
+- Go back to the Atlas UI
 - Navigate to the movies collection and click on the Online Archive Tab
 - Click on Configure Online Archive
 - Click on Next and enter the namespace where the movies are stored (*The namespace would be the db.collection -> sample_mflix.movies* ).
@@ -128,7 +129,8 @@ We'll start by building the index:
 - Wait until your index status turns to ‘ACTIVE’
 - Test it in the aggregation pipeline builder. 
 - Leverage the $search aggregation pipeline stage.
-- Export the pipeline to NodeJS syntax. 
+- Export the pipeline to NodeJS syntax.
+- Copy the pipeline 
 
 Now that our index is ready, let's write the NodeJS microservice to serve the frontend requests for search.  
 # Exercise 6: Create a Node.js Microservice 
@@ -136,12 +138,11 @@ Now that our index is ready, let's write the NodeJS microservice to serve the fr
 
 The frontend sends a `GET` request to the following endpoint: http:///localhost:8001/search, it passes the search term as a query string in the following format: `http://localhost:8001/search?search="`
 
-- Create a file in the server folder and call it `search.js`
+- Create a file in the server folder and call it `server.js`
 - Start by importing the required modules:
 ```
 const express = require("express");
 const cors = require("cors");
-var client = require('./db');
 const app = express();
 const { MongoClient } = require("mongodb"); //MongoDB Node.js driver
 
@@ -154,19 +155,9 @@ const movies = client.db("sample_mflix").collection("movies")
 ```
 - Using express, create a `GET` route to serve the requests:
 ```
+app.use(cors());
 app.get("/search", async (req, res) => {
-    const searchQuery = [
-        {
-            '$search': {
-                'index': 'default_index',
-                'text': {
-                    'query': req.query.search,
-                    'path': 'title',
-                    'fuzzy': {}
-                }
-            }
-        }
-    ]
+    const searchQuery = <InsertSearchPipeline> //This should be the Search pipeline you exported in Excercise 5 
     const result = await movies.aggregate(searchQuery).toArray();
     res.send(result);
 });
