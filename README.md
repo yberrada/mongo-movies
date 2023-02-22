@@ -76,7 +76,7 @@ Let's now configure the network security. As this is a workshop we will be white
 Awesome. So far we have gained access to a MongoDB Atlas Cluster and we have configured the Security.
 
 # Exercise 2: Query Optimization
-Let's start by optimizing the welcome page. At this time, the query powering the welcome page searches randomly for 10 movies. The business wants us to instead only show the last 10 movies that were added. 
+Let's start by optimizing the welcome page. At this time, the query powering the welcome page searches randomly for 10 movies. 
 
 You need to come up with a query that returns the 10 movies that are PG rated: `{rated : "PG"}` and their release date is between 2000 and 2016 `{rated : "PG", year:{$gt: 2000, $lt: 2016}}` while sorting by title `{title: 1}`.
 
