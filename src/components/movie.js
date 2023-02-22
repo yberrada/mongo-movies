@@ -9,7 +9,7 @@ const Movie = ({ title, year, rating, fullplot, poster, match }) => {
                 <Card.Header>{title}</Card.Header>
                 <Card.Img className="poster" variant="top" src={poster} />
                 <Card.Body>
-                    <Card.Title>{year}</Card.Title>
+                    <Card.Title>Release year: {year}</Card.Title>
                     <Card.Text className="scroll">
                         {fullplot}
                     </Card.Text>
