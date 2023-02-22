@@ -2,12 +2,8 @@ import React from 'react'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-// import Login from './components/login.component'
-import MultiDashboard from './components/multidashboard'
 import Home from './components/home'
 import Search from './components/search'
-// import User from './components/user'
-// import image from './assets/logo.svg';
 
 
 function App() {
@@ -31,11 +27,6 @@ function App() {
                     Search
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to={'/dashboard'}>
-                    Dashboard
-                  </Link>
-                </li>
               </ul>
             </div>
             {/* <div className="collapse navbar-collapse justify-content-end">
@@ -54,7 +45,6 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route exact path="/home" element={<Home />} />
             <Route exact path="/search" element={<Search />} />
-            <Route path="/dashboard" element={<MultiDashboard />}></Route>
           </Routes>
         </div>
       </div>
