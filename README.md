@@ -23,7 +23,34 @@ The goal of this lab is to get you familiar with some of the MongoDB Atlas featu
 ### Step 1 - Install Node.JS:
 Use the following link to download and install Node.js: 
 >https://nodejs.org/en/download/
-### Step 2 - Clone Github Repo
+
+
+# Exercise 1: Setup Atlas Cluster & App
+
+### Step 1: Access MongoDB Atlas cluster  
+*Skip this exercise if you already have a MongoDB Atlas Cluster - Make sure the Atlas Cluster is at least an M10*
+- Login to the attendee portal: https://www.atlas-labs.cloud/
+- Gain access to your dedicated cluster by clicking on <b>Atlas Cluster</b> in the top left corner.
+- The e-mail will be prepopulated, leave it as is and use the following password to login:
+>  *AtlasW0rskop!*
+
+Great! We now need to setup the security around Atlas. By default, Atlas cluters are not reachable from the internet. We also need to configure *Authentication* and *Authorization*!
+
+### Step 2: Setup your cluster's security
+- Click on Database Access in the left sidebar, and click on:
+> ADD NEW DATABASE USER.
+- Set the authentication Method to Password (uses SCRAM) and give your user a: 
+> Username & Password  </br>
+- Assign the user one of the available built-in roles that allows a user to be an Atlas Cluster Admin.
+
+Let's now configure the network security. As this is a workshop we will be whitelisting all IPs to access our cluster instead of opting for a VPC peering or a Private endpoint for more complex deployments. 
+- Click on network Access on the left side bar and click on:
+>ADD IP ADDRESS. 
+- Allow access from anywhere. 
+
+Awesome. So far we have gained access to a MongoDB Atlas Cluster and we have configured the Security.
+
+### Step 3 - Clone Github Repo
 We're going to start by setting up our project. First, create a folder for the workshop content:
 ```
 mkdir mongodb-workshop
@@ -47,33 +74,9 @@ npm run dev
 *The application should now be running on your local machine. To check out the app, visit localhost @ port 3000: http://localhost:3000*
 *Notice that the frontend runs in the port 3000 while the backend service run on port 8000.*
 
-### Step 3: Explore the app
+### Step 4: Explore the app
 As you have might have figured out by now, the application is working -  it is basically a mini netflix Clone! </br>
 *This lab will consists of a series of exercices that will enhance the application performance and introduce new features to it.*
-
-# Exercise 1: Setup Atlas Cluster
-
-### Step 1: Access MongoDB Atlas cluster  
-*Skip this exercise if you already have a MongoDB Atlas Cluster - Make sure the Atlas Cluster is at least an M10*
-- Login to the attendee portal: https://www.atlas-labs.cloud/
-- Gain access to your dedicated cluster by clicking on <b>Atlas Cluster</b> in the top left corner.
-- The e-mail will be prepopulated, leave it as is and use the following password to login:
->  *AtlasW0rskop!*
-
-Great! We now need to setup the security around Atlas. By default, Atlas cluters are not reachable from the internet. We also need to configure *Authentication* and *Authorization*!
-### Step 2: Setup your cluster's security
-- Click on Database Access in the left sidebar, and click on:
-> ADD NEW DATABASE USER.
-- Set the authentication Method to Password (uses SCRAM) and give your user a: 
-> Username & Password  </br>
-- Assign the user one of the available built-in roles that allows a user to be an Atlas Cluster Admin.
-
-Let's now configure the network security. As this is a workshop we will be whitelisting all IPs to access our cluster instead of opting for a VPC peering or a Private endpoint for more complex deployments. 
-- Click on network Access on the left side bar and click on:
->ADD IP ADDRESS. 
-- Allow access from anywhere. 
-
-Awesome. So far we have gained access to a MongoDB Atlas Cluster and we have configured the Security.
 
 # Exercise 2: Query Optimization
 Let's start by optimizing the welcome page. At this time, the query powering the welcome page searches randomly for 10 movies. 
@@ -92,9 +95,9 @@ Based on the results of the analytics team, 95% of the customers only search for
 - Go back to the Atlas UI
 - Navigate to the movies collection and click on the Online Archive Tab
 - Click on Configure Online Archive
-- Click on Next and enter the namespace where the movies are stored (*The namespace would be the db.collection -> sample_mflix.movies* ).
-- Under the archiving rule, select custom criteria and come up with the query that return movies that were released before 2016. Note, the movie documents have a field called `year`. Write a basic MQL query in the custom criteria input box. The query should look like this: `{"year": {"$lt": 2016}}` 
-- Enter the most common fields that queries on archived documents will contain. These will be used to partition your archived data for optimal query performance.In our scenario, this is the `rated` field. 
+- Click on Next and enter the namespace where the movies are stored `sample_mflix.movies`.
+- Under the archiving rule, select **custom criteria** and come up with the query that return movies that were released before 2016. Note, the movie documents have a field called `year`. Write a basic MQL query in the custom criteria input box. The query should look like this: `{"year": {"$lt": 2016}}` 
+- Enter the most common fields that queries on archived documents will contain. These will be used to partition your archived data for optimal query performance.In our scenario, this is the `rated` field, then the `title` field. 
 - Click on next and launch the archival process.
 
 *If successful, you should not be able to find any movies with a year value prior to 2016 in your database.*
