@@ -17,7 +17,7 @@ The goal of this lab is to get you familiar with some of the MongoDB Atlas featu
 *The following is a high level architecture diagram of the application we're going to work on today.* 
 <br />
 
-![alt text](./public/architectureDiagram.png) 
+![alt text](./public/readme/architectureDiagram.png) 
 
 # Prerequisites 
 ### Step 1 - Install Node.JS:
@@ -38,41 +38,50 @@ Use the following link to download and install Node.js: https://nodejs.org/en/do
 
 ### Step 2: Setup your cluster's security
 - Click on **Database Access** in the left sidebar, and click on: **ADD NEW DATABASE USER**.
+![alt text](./public/readme/db_config.png) 
+
 - Set the authentication Method to Password (uses SCRAM) and give your user a: **Username & Password**
 - Assign the user one of the available built-in roles that allows a user to be an Atlas Cluster Admin.
 
 Let's now configure the network security. As this is a workshop we will be whitelisting all IPs to access our cluster instead of opting for a VPC peering or a Private endpoint for more complex deployments. 
-- Click on network Access on the left side bar and click on: **ADD IP ADDRESS**. 
+- Click on **Network Access** on the left side bar and click on: **ADD IP ADDRESS**. 
+![alt text](./public/readme/network_config.png) 
+
 - Select **ALLOW ACCESS FROM ANYWHERE** and click on **Confirm**. 
 
 >Awesome. So far we have gained access to a MongoDB Atlas Cluster and we have configured the Security.
 
 ### Step 3 - Clone Github Repo
-We're going to start by setting up our project. Start by creating a folder for the workshop content. Execute the commands below in your terminal: 
-```
-mkdir mongodb-workshop
-cd mongodb-workshop
-```
-Now, clone the git repo:
-```
-git clone https://github.com/yberrada/mongo-movies.git
-```
-Open the project in your favorite IDE and update your connection string in the db.js file: 
-```
-./mongodb-workshop/mongo-movies/server/db.js
-```
+We're going to start by setting up our project. Start by creating a folder for the workshop content. 
+- Execute the commands below in your terminal: 
+  ```
+  mkdir mongodb-workshop
+  cd mongodb-workshop
+  ```
+- Now, clone the git repo:
+  ```
+  git clone https://github.com/yberrada/mongo-movies.git
+  ```
+- Open the project in your favorite IDE and update your connection string in the`./mongodb-workshop/mongo-movies/server/db.js`. To do so:
+  - Go to the **Data Services** Tab. 
+  - Under the cluster view, Click on **Connect**
+  - Select **Connect your application**
+  - Copy the connection string. 
+  - Update your db.js file.
 
-Now, run the code to see the application in action
-```
-cd mongo-movies
-npm install
-npm run dev
-```
+- Now, run the code to see the application in action
+  ```
+  cd mongo-movies
+  npm install
+  npm run dev
+  ```
 > The application should now be running on your local machine. To check out the app, visit localhost @ port 3000: http://localhost:3000 
 Notice that the frontend uses port 3000 while the backend service is listenning on port 8000.
 
 ### Step 4: Explore the app
 As you have might have figured out by now, the application is working -  it is basically a mini netflix Clone! </br>
+![alt text](./public/readme/ui-1.png) 
+
 Feel free to check out the Home page and the Search tab. 
 >This lab will consists of a series of exercices that will introduce new features to the application.
 
@@ -83,9 +92,12 @@ We will start by customizing the welcome page. At this time, the query powering 
 
 You need to update the exisiting to query so that it starts querying for movies that are PG rated: `{rated : "PG"}` and their release date is between 2000 and 2016 `{rated : "PG", year:{$gt: 2000, $lt: 2016}}` while sorting by title `{title: 1}`.
 
-Make sure to update the query in the `./server/movies.js` file.
+- Update the query in the `./server/movies.js` file.
 
 > After a page refresh and if you're successful, you should see  <b>2016: Obama's America</b> as the movie in the top left corner of the home page.  
+
+![alt text](./public/readme/ui-2.png) 
+
 ---
 # Exercise 3: Data archival
 Based on the results of the analytics team, 95% of the customers only search for movies that were released in the past 7 years. Therefore, as a cost optimization measure we would like to archive movies older than 7 years old. Archiving can be a complicated process. Thankfully, MongoDB Atlas comes with an archival service that we can leverage. We will use *Atlas Online Archive* to archive all the movies that were realeased before 2016.
