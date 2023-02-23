@@ -6,10 +6,10 @@ const Movie = ({ title, year, rating, fullplot, poster, match }) => {
     return (
         <div >
             <Card className={match} border="dark" bg="dark" text="white" style={{ width: '21rem' }}>
-                <Card.Header>{title}</Card.Header>
+                <Card.Header className="scroll" >{title}</Card.Header>
                 <Card.Img className="poster" variant="top" src={poster} />
                 <Card.Body>
-                    <Card.Title>Release year: {year}</Card.Title>
+                    {/* <Card.Title>Release year: {year}</Card.Title> */}
                     <Card.Text className="scroll">
                         {fullplot}
                     </Card.Text>
