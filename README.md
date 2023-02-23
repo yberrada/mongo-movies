@@ -10,7 +10,7 @@ The goal of this lab is to get you familiar with some of the MongoDB Atlas featu
 6. [Exercise 4: Federated Queries](#exercise-4-Federated-Queries)
 7. [Exercise 5: Add a Search feature](#exercise-5-add-a-search-feature)
 8. [Exercise 6: Create a Node.js Microservice](#exercise-6-create-a-nodejs-microservice)
-9. [Exercise 7: Add Data Capture](#exercise-7-add-data-capture)
+9. [Exercise 7: Add Data Capture](#exercise-7-data-capture)
 
 
 # Architecture
@@ -65,6 +65,8 @@ We're going to start by setting up our project. Start by creating a folder for t
 - Open the project in your favorite IDE and update your connection string in the`./mongodb-workshop/mongo-movies/server/db.js`. To do so:
   - Go to the **Data Services** Tab. 
   - Under the cluster view, Click on **Connect**
+  ![alt text](./public/readme/connect.png) 
+
   - Select **Connect your application**
   - Copy the connection string. 
   - Update your db.js file.
@@ -101,16 +103,28 @@ You need to update the exisiting to query so that it starts querying for movies 
 ---
 # Exercise 3: Data archival
 Based on the results of the analytics team, 95% of the customers only search for movies that were released in the past 7 years. Therefore, as a cost optimization measure we would like to archive movies older than 7 years old. Archiving can be a complicated process. Thankfully, MongoDB Atlas comes with an archival service that we can leverage. We will use *Atlas Online Archive* to archive all the movies that were realeased before 2016.
-- Go back to the Atlas UI
-- Navigate to the movies collection
-- For efficiency purposes, create an Index on the `year` field by clicking on **Indexes**
-- Click on **Create Index** 
+  - Go back to the **Data Services** Tab. 
+  - Under the cluster view, Click on **Browse Collection**.
+  - Navigate to the **movies** collection in the **sample_mflix** db.
+
+![alt text](./public/readme/getMovies.png) 
+
+For efficiency purposes, we willcreate an Index on the `year`.
+
+- Click on **Indexes** and then **Create Index** 
+![alt text](./public/readme/index.png) 
+
 - In the Index definition, speficy the fields to be indexed: `{"year": 1}`
+- Finalize Index creation.
 - Now that the Index is ready, click on the **Online Archive** Tab
-- Click on Configure Online Archive
+- Click on **Configure Online Archive**
+![alt text](./public/readme/online-archive.png) 
+
 - Click on Next and enter the namespace where the movies are stored `sample_mflix.movies`.
 - Under the archiving rule, select **custom criteria** and come up with the query that return movies that were released before 2016. Note, the movie documents have a field called `year`. Write a basic MQL query in the custom criteria input box. The query should look like this: `{"year": {"$lte": 2016}}` 
-- Enter the most common fields that queries on archived documents will contain. These will be used to partition your archived data for optimal query performance.In our scenario, assume that it is the `rated` field. 
+![alt text](./public/readme/online-archive-config.png) 
+
+- Enter the most common fields that queries on archived documents will contain. These will be used to partition your archived data for optimal query performance. In our scenario, assume that it is the `rated` field. 
 - Click on next and launch the archival process.
 
 >If successful, you should not be able to find any movies with a year value prior to 2016 in your database.
@@ -120,11 +134,13 @@ Based on the results of the analytics team, 95% of the customers only search for
 Go back to the app,  and verify if the <b>2016: Obama's America</b> is still showing up first. If you have properly archived your data, the movie should not be there (It was released in 2012). That's a problem. Yes, we wanted to archive the old movies, however, we would still like to offer them as one of the options for our viewers. Thankfully, we can leverage *Atlas Data Federation* which enables us to use one MongoDB connection to query both data in our live cluster and the data that was archived. All we have to do is update our connection string in the code.  
 - Go to the **Data Services** Tab. 
 - Under the cluster view, Click on **Connect**
+  ![alt text](./public/readme/connect.png) 
+
 - Select **Connect your application**
 - Make sure to select the **Connect to Cluster and Online Archive** and copy the connection string. 
-- Make sure to update the connection string in the `./server/db.js` file.
+- Update the connection string in the `./server/db.js` file.
 
-> If you refresh the app, you should see <b>2016: Obama's America</b> on top of the list.
+> If you refresh the app, you should see <b>2016: Obama's America</b> again on top of the list.
 
 ---
 # Exercise 5: Add a Search feature
@@ -133,9 +149,11 @@ As we further enhance our application, we received a request from the business t
 2. Create the microservice to expose the functionality as an API
 
 We'll start by building the index: 
-- Go to the Atlas UI and navigate to ‘**Browse Collections**’
-- Enter the '**Search**' Tab
-- Click on '**Create a Search Index**'
+  - Go back to the **Data Services** Tab. 
+  - Under the cluster view, Click on **Browse Collection**.
+  - Enter the '**Search**' Tab and Click on '**Create a Search Index**'
+![alt text](./public/readme/search.png) 
+
 - Select '**Visual Editor**' as the Configuration Method 
 - Click on **Next** 
 - Fill in the details for the index:
@@ -147,8 +165,12 @@ We'll start by building the index:
 
 We now can test our Search Index through the aggregation pipeline builder. 
 - Go back to ‘**Browse Collections**’ and select the '**sample-mflix.movies**' collection.
+![alt text](./public/readme/aggregate.png) 
+
 - Click on the '**Aggregation**' tab 
 - Select the '**$search**' aggregation pipeline stage in the dropdown menu.
+![alt text](./public/readme/search-stage.png) 
+
 - Try running the following query in the search stage:  
 ```
 {
@@ -162,10 +184,8 @@ We now can test our Search Index through the aggregation pipeline builder.
 ```
 > The search stage should match a movie titled: *The Storyteller*. Notice that our query string is *Storteler*.
 
-- Export the pipeline to NodeJS syntax.
+- Export the pipeline to NodeJS syntax by clicking on **EXPORT TO LANGUAGE**.
 - Make sure to save the pipeline code in your text editor. 
-<!-- - Wait until your index status turns to ‘**ACTIVE**’ -->
-
 
 > Now that our index is ready, let's write the NodeJS microservice to serve the frontend requests for search.  
 
@@ -208,23 +228,24 @@ app.listen(8001, () => {
 
 You're now ready to test your search functionality. If you have configured the search index properly, the UI search bar should output relevant result. Try searching for **Arbian**, this should return multiple movies with **Arabian** in the title. 
 
+--> Add screenshot
+
 ---
 
-# Exercise 7: Add Data Capture
+# Exercise 7: Data Capture
 This is the last exercise of the workshop. At this point, we want to keep track of every user that adds a movie to our database. For that, we can create an Atlas function and configure a trigger to create a document for each user that has added/inserted a new movie to our database. 
 
 
-- Go to the Atlas UI and navigate to ‘**Browse Collections**’
-- Enter the '**Search**' Tab
-- Click on '**Create a Search Index**'
-- Select '**Visual Editor**' as the Configuration Method 
+- Go to the Atlas UI and navigate to ‘**App Services**’
+- Click **next** and **Create App Service**
+ ![alt text](./public/readme/appsvc.png) 
 
-
-- In the Atlas UI, click on the '**App Services**' tab.
-- Create a new App
-- And in the left side bar, click on '**functions**'. 
-> We're going to define a function that adds a document everytime it is ran.
-- Click on Create function, give it a name and go the function editor tab.
+We're going to define a function that adds a document everytime it is called.
+- In the left side bar, click on '**functions**'. 
+- Click on Create function.
+ ![alt text](./public/readme/function.png) 
+- Give it a name and go the **Function Editor** tab.
+ ![alt text](./public/readme/fn-editor.png) 
 - Use the following code to define your function and make sureto update your name in the user field of the document
 ```
 exports = async function(arg){
@@ -241,10 +262,17 @@ exports = async function(arg){
   return { result: insertResult };
 };
 ```
+- Click on **Save Draft** and then **REVIEW DRAFT & DEPLOY** button. 
+
 Awesome. We have defined the function. Now what? We can now configure triggers to run the function every time there's an insert in our database. 
+- Click on '**Trigges**'.
 - Click on '**Add trigger**'.
+ ![alt text](./public/readme/triggers.png) 
 - Select the right *cluster, database, collection name* and make sure to select the **INSERT** Operation Type.
-- Click on Save.
+ ![alt text](./public/readme/triggers-conf.png) 
+- Under the **Function** dropdown, choose the function we created in the first step of this exercise.
+ ![alt text](./public/readme/trigger-function.png) 
+- Click on **Save** and then **REVIEW DRAFT & DEPLOY** button. 
 
 We're now ready to test our setup. 
 
