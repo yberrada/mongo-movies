@@ -204,9 +204,9 @@ const app = express();
 const { MongoClient } = require("mongodb"); //MongoDB Node.js driver
 
 ```
-- Now, you need to create a client connection to MongoDB using the Node.js driver.
+- Now, you need to create a client connection to MongoDB using the Node.js driver. Make sure to update the connection string. 
 ``` 
-const uri ="mongodb+srv://admin:admin@cluster1.fof1o.mongodb.net/?retryWrites=true&w=majority";
+const uri ="<InsertYourConnectionString>";
 const client = new MongoClient(uri);
 const movies = client.db("sample_mflix").collection("movies")
 ```
