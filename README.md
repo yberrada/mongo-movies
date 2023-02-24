@@ -277,6 +277,8 @@ Awesome. We have defined the function. Now what? We can now configure triggers t
 We're now ready to test our setup. 
 
 - Navigate to your movies collection and manually insert a document. 
+ ![alt text](./public/readme/add_movie.png) 
+
 - If configured properly, you should see a new collection in your db called users in which there's a document that was inserted by the Atlas functions. 
 
 >Congratulations on completing the lab!
