@@ -205,6 +205,8 @@ const { MongoClient } = require("mongodb"); //MongoDB Node.js driver
 
 ```
 - Now, you need to create a client connection to MongoDB using the Node.js driver. Make sure to update the connection string. 
+![alt text](./public/readme/clusterconnect.png) 
+
 ``` 
 const uri ="<InsertYourConnectionString>";
 const client = new MongoClient(uri);
