@@ -232,7 +232,18 @@ const cors = require("cors");
 const app = express();
 const { MongoClient } = require("mongodb"); //MongoDB Node.js driver
 
-const uri ="<InsertYourConnectionString>";
+const uri = [
+          {
+          '$search': {
+            'index': 'default', 
+            'text': {
+              'query': req.query.search, 
+              'path': 'title', 
+              'fuzzy': {}
+            }
+          }
+        }
+      ]
 const client = new MongoClient(uri);
 const movies = client.db("sample_mflix").collection("movies")
 
