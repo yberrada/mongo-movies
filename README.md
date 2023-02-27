@@ -29,7 +29,7 @@ Use the following link to download and install Node.js: https://nodejs.org/en/do
 
 ### Step 1: Access MongoDB Atlas cluster  
 *Skip this step if you already have a MongoDB Atlas Cluster - Make sure the Atlas Cluster is at least an **M10** instance.*
-- Get a user credentials by reserving one of the available usernames found in this sheet: http://tiny.cc/mdb-wrkshp
+- Get a user credentials by reserving one of the available usernames found in this sheet: http://tiny.cc/mdb-wrkshp. Add your name to the Owner column to avoid sharing credentials with another attendee. 
 - Login to the attendee portal: https://www.atlas-labs.cloud/
 - Gain access to your dedicated cluster by clicking on <b>Atlas Cluster</b> in the top left corner.
 - The e-mail will be prepopulated.To login use the following password: "***AtlasW0rskop!*** "
