@@ -102,7 +102,7 @@ You need to update the exisiting to query so that it starts querying for movies 
 
 ---
 # Exercise 3: Data archival
-Based on the results of the analytics team, 95% of the customers only search for movies that were released in the past 7 years. Therefore, as a cost optimization measure we would like to archive movies older than 10 years old. Archiving can be a complicated process. Thankfully, MongoDB Atlas comes with an archival service that we can leverage. We will use *Atlas Online Archive* to archive all the movies that were realeased before 2012.
+Based on the results of the analytics team, 95% of the customers only search for movies that were released in the past 10 years. Therefore, as a cost optimization measure we would like to archive movies older than 10 years old. Archiving can be a complicated process. Thankfully, MongoDB Atlas comes with an archival service that we can leverage. We will use *Atlas Online Archive* to archive all the movies that were realeased before 2012.
   - Go back to the **Data Services** Tab. 
   - Under the cluster view, Click on **Browse Collection**.
   - Navigate to the **movies** collection in the **sample_mflix** db.
