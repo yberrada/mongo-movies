@@ -225,7 +225,28 @@ app.listen(8001, () => {
     console.log(`Server is running on port 8001.`);
 });
 ```
+- The final code should look like the following:
+```
+const express = require("express");
+const cors = require("cors");
+const app = express();
+const { MongoClient } = require("mongodb"); //MongoDB Node.js driver
 
+const uri ="<InsertYourConnectionString>";
+const client = new MongoClient(uri);
+const movies = client.db("sample_mflix").collection("movies")
+
+app.use(cors());
+app.get("/search", async (req, res) => {
+    const searchQuery = <InsertSearchPipeline> //This should be the Search pipeline you exported in Excercise 5 
+    const result = await movies.aggregate(searchQuery).toArray();
+    res.send(result);
+});
+
+app.listen(8001, () => {
+    console.log(`Server is running on port 8001.`);
+});
+```
 You're now ready to test your search functionality. If you have configured the search index properly, the UI search bar should output relevant result. Try searching for **Arbian**, this should return multiple movies with **Arabian** in the title. 
 
 --> Add screenshot
@@ -281,4 +302,6 @@ We're now ready to test our setup.
 
 - If configured properly, you should see a new collection in your db called users in which there's a document that was inserted by the Atlas functions. 
 
->Congratulations on completing the lab!
+>Congratulations on completing the lab! Please take the time to give us feedback:
+
+ ![alt text](./public/readme/QR.png) 
