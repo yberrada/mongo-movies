@@ -69,7 +69,7 @@ We're going to start by setting up our project. Start by creating a folder for t
   ![alt text](./public/readme/connect.png) 
 
   - Select **Connect your application**
-  - Copy the connection string. 
+  - Make sure the Node.js driver is selected and Copy the connection string. 
   - Update your db.js file.
 
 - Now, run the code to see the application in action
@@ -78,7 +78,7 @@ We're going to start by setting up our project. Start by creating a folder for t
   npm install
   npm run dev
   ```
-> The application should now be running on your local machine. To check out the app, visit localhost @ port 3000: http://localhost:3000 
+> The application should now be running on your local machine. To check out the app, visit localhost @ port 3000: http://localhost:3000.
 Notice that the frontend uses port 3000 while the backend service is listenning on port 8000.
 
 ### Step 4: Explore the app
@@ -86,7 +86,6 @@ As you have might have figured out by now, the application is working -  it is b
 ![alt text](./public/readme/ui-1.png) 
 
 Feel free to check out the Home page and the Search tab. 
->This lab will consists of a series of exercices that will introduce new features to the application.
 
 ---
 
@@ -250,7 +249,7 @@ app.listen(8001, () => {
 ```
 You're now ready to test your search functionality. If you have configured the search index properly, the UI search bar should output relevant result. Try searching for **Arbian**, this should return multiple movies with **Arabian** in the title. 
 
---> Add screenshot
+![alt text](./public/readme/arabian.png) 
 
 ---
 
