@@ -232,8 +232,13 @@ const cors = require("cors");
 const app = express();
 const { MongoClient } = require("mongodb"); //MongoDB Node.js driver
 
-const uri = [
-          {
+const uri ="<InsertYourConnectionString>";
+const client = new MongoClient(uri);
+const movies = client.db("sample_mflix").collection("movies")
+
+app.use(cors());
+app.get("/search", async (req, res) => {
+    const searchQuery = [{
           '$search': {
             'index': 'default', 
             'text': {
@@ -244,12 +249,6 @@ const uri = [
           }
         }
       ]
-const client = new MongoClient(uri);
-const movies = client.db("sample_mflix").collection("movies")
-
-app.use(cors());
-app.get("/search", async (req, res) => {
-    const searchQuery = <InsertSearchPipeline> //This should be the Search pipeline you exported in Excercise 5 
     const result = await movies.aggregate(searchQuery).toArray();
     res.send(result);
 });
