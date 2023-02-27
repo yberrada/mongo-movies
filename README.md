@@ -21,7 +21,7 @@ The goal of this lab is to get you familiar with some of the MongoDB Atlas featu
 
 # Prerequisites 
 ### Step 1 - Install Node.JS:
-Use the following link to download and install Node.js: https://nodejs.org/en/download/
+Use the following link to download and install Node.js: https://nodejs.org/en/download/. If you already have Node.js installed, make sure that you're running at least **v16.0.0**.
 
 ---
 
