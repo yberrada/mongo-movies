@@ -4,8 +4,8 @@ The goal of this lab is to get you familiar with some of the MongoDB Atlas featu
 # Table of Contents
 1. [Introduction & Architecture](#architecture)
 2. [Prerequisites](#prerequisites)
-3. [Exercise 1: Setup Atlas Cluster](#exercise-1-setup-atlas-cluster)
-4. [Exercise 2: Query Optimization](#exercise-2-CRUD-operation-filtering)
+3. [Exercise 1: Setup Atlas Cluster & App](#exercise-1-setup-atlas-cluster-app)
+4. [Exercise 2: CRUD Operation & Filtering](#exercise-2-crud-operation-filtering)
 5. [Exercise 3: Data archival](#exercise-3-data-archival)
 6. [Exercise 4: Federated Queries](#exercise-4-Federated-Queries)
 7. [Exercise 5: Add a Search feature](#exercise-5-add-a-search-feature)
