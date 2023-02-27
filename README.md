@@ -32,7 +32,7 @@ Use the following link to download and install Node.js: https://nodejs.org/en/do
 - Get a user credentials by reserving one of the available usernames found in this sheet: http://tiny.cc/mdb-wrkshp. Add your name to the Owner column to avoid sharing credentials with another attendee. 
 - Login to the attendee portal: https://www.atlas-labs.cloud/
 - Gain access to your dedicated cluster by clicking on <b>Atlas Cluster</b> in the top left corner.
-- The e-mail will be prepopulated.To login use the following password: "***AtlasW0rskhop!*** "
+- The e-mail will be prepopulated.To login use the following password: "***AtlasW0rkshop!*** "
 
 
 >Great! We now need to setup the security around Atlas. By default, Atlas cluters are not reachable from the internet. Therefore, we will have to configure Network Security and User Authentication and Authorization
