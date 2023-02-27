@@ -102,7 +102,7 @@ You need to update the exisiting to query so that it starts querying for movies 
 
 ---
 # Exercise 3: Data archival
-Based on the results of the analytics team, 95% of the customers only search for movies that were released in the past 7 years. Therefore, as a cost optimization measure we would like to archive movies older than 7 years old. Archiving can be a complicated process. Thankfully, MongoDB Atlas comes with an archival service that we can leverage. We will use *Atlas Online Archive* to archive all the movies that were realeased before 2016.
+Based on the results of the analytics team, 95% of the customers only search for movies that were released in the past 7 years. Therefore, as a cost optimization measure we would like to archive movies older than 10 years old. Archiving can be a complicated process. Thankfully, MongoDB Atlas comes with an archival service that we can leverage. We will use *Atlas Online Archive* to archive all the movies that were realeased before 2012.
   - Go back to the **Data Services** Tab. 
   - Under the cluster view, Click on **Browse Collection**.
   - Navigate to the **movies** collection in the **sample_mflix** db.
@@ -121,13 +121,13 @@ For efficiency purposes, we willcreate an Index on the `year`.
 ![alt text](./public/readme/online-archive.png) 
 
 - Click on Next and enter the namespace where the movies are stored `sample_mflix.movies`.
-- Under the archiving rule, select **custom criteria** and come up with the query that return movies that were released before 2016. Note, the movie documents have a field called `year`. Write a basic MQL query in the custom criteria input box. The query should look like this: `{"year": {"$lte": 2016}}` 
+- Under the archiving rule, select **custom criteria** and come up with the query that return movies that were released before 2012. Note, the movie documents have a field called `year`. Write a basic MQL query in the custom criteria input box. The query should look like this: `{"year": {"$lte": 2012}}` 
 ![alt text](./public/readme/online-archive-config.png) 
 
 - Enter the most common fields that queries on archived documents will contain. These will be used to partition your archived data for optimal query performance. In our scenario, assume that it is the `rated` field. 
 - Click on next and launch the archival process.
 
->If successful, you should not be able to find any movies with a year value prior to 2016 in your database.
+>If successful, you should not be able to find any movies with a year value prior to 2012 in your database.
 
 ---
 # Exercise 4: Federated Queries
