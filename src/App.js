@@ -16,7 +16,7 @@ function App() {
               <div> Paylocity Workshop </div >
             </Link>
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-              <ul class="navbar-nav mr-auto">
+              <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
                   <Link className="nav-link" to={'/home'}>
                     Home

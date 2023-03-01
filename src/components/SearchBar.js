@@ -37,9 +37,9 @@ function SearchBar({ placeholder, data }) {
 
     <div>
 
-      <div class="wrap">
-        <div class="search">
-          <input type="text" class="searchTerm" ref={textInput}
+      <div className="wrap">
+        <div className="search">
+          <input type="text" className="searchTerm" ref={textInput}
             placeholder="Enter a Title"
             onKeyPress={onKeyPressHandler}></input>
         </div>
